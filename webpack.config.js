@@ -13,6 +13,13 @@ module.exports = {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'js/bundle-[hash].js'
 	},
+	// devServer: {
+	// 	contentBase: path.resolve(__dirname, 'dist'),
+	// 	host: 'localhost',
+	// 	port: 8765,
+	//  hot: true,
+	// 	open: true
+	// },
 	plugins:[
 		new CleanWebpackPlugin(['dist']),
 		new HtmlWebpackPlugin({
