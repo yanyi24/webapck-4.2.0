@@ -1,2 +1,2 @@
-const root = document.getElementById('root');
-root.innerHTML = 'Hello World!';
+const $ = require('jquery');
+$('.main').html('jquery 生效了！！');

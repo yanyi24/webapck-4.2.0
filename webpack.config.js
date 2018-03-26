@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const headerHtml = require('./src/assets/js/header');
 module.exports = {
-	entry: ['./src/assets/js/a.js','./src/assets/js/b.js'],//通用，多入口到单一出口
+	entry: ['./src/assets/js/a.js','./src/assets/js/b.js'],//多入口到单一出口
 	// entry: {
 	// 	a: './src/assets/js/a.js',
 	// 	b: './src/assets/js/b.js'  
@@ -11,7 +11,7 @@ module.exports = {
 	// },
 	output: {
 		path: path.resolve(__dirname, 'dist'),
-		filename: 'bundle-[hash].js'
+		filename: 'js/bundle-[hash].js'
 	},
 	plugins:[
 		new CleanWebpackPlugin(['dist']),
@@ -19,11 +19,12 @@ module.exports = {
 			title: 'templete A',
 			filename: 'a.html',
 			template: './src/a.html',
-			chunks: ['b'],
+			// chunks: ['b'], //当为单出口时，这个没什么意义
 			files:{
 				css: ['main.css','a.css'],
 				header: headerHtml
 			},
+			// minify: true //当模板中使用ejs时，有这个参数时打包不成功
 		}),
 		new HtmlWebpackPlugin({
 			title: 'templete B',
