@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const headerHtml = require('./src/assets/js/header');
+const headerHtml = require('./src/assets/js/headerHTML');
 module.exports = {
 	entry: ['./src/assets/js/a.js','./src/assets/js/b.js'],//多入口到单一出口
 	// entry: {
@@ -23,6 +23,17 @@ module.exports = {
 	},
 	module: {
 		rules: [
+			// { //使用这个就加载不了公共头部，咋整
+			// 	test: /\.(html)$/,
+			// 	use: [{
+			// 		loader: 'html-loader',
+			// 		// options: {
+			// 		// 	minimize: false,
+			// 		// 	removeComments: false,
+			// 		// 	collapseWhitespace: true
+			// 		// }
+			// 	}]
+			// },
 			{
 				test: /\.css$/,
 				use: ['style-loader', 'css-loader']
