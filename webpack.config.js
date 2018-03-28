@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin'); 
 const headerHtml = require('./src/assets/js/headerHTML');
 module.exports = {
 	entry: ['./src/assets/js/a.js','./src/assets/js/b.js'],//多入口到单一出口
@@ -36,14 +37,30 @@ module.exports = {
 			// },
 			{
 				test: /\.css$/,
-				use: ['style-loader', 'css-loader']
+				// use: ['style-loader', 'css-loader']
+				use: ExtractTextPlugin.extract({
+					fallback: 'style-loader',
+					use: ['css-loader', 'postcss-loader'],
+					publicPath: '../' //解决背景图路径问题
+				})
 			},
 			{
-				test: /\.(png|jpg|gif)/,
+				test: /\.less$/,
+				// use: ['style-loader','css-loader','less-loader'],
+				use: ExtractTextPlugin.extract({
+					fallback: 'style-loader',
+					use: ['css-loader','less-loader'],
+					publicPath: '../' //解决背景图路径问题
+				})
+			},
+			{
+				test: /\.(pne?g|jpg|gif|svg)/,
 				use: [{
 					loader: 'url-loader',
 					options: {
-						limit: 3000
+						limit: 1000,
+						name: 'images/[name]-[hash:4].[ext]',
+						// outputpath: 'images' //图片打包后的路径,不能用，咋整
 					}
 				}]
 			}
@@ -51,7 +68,7 @@ module.exports = {
 	},
 	plugins:[
 		new webpack.HotModuleReplacementPlugin(), // 启用热更新
-		// new CleanWebpackPlugin(['dist']),
+		new CleanWebpackPlugin(['dist']),
 		new HtmlWebpackPlugin({
 			title: 'templete A',
 			filename: 'a.html',
@@ -68,5 +85,6 @@ module.exports = {
 			filename: 'b.html',
 			template: './src/b.html',
 		}),
+		new ExtractTextPlugin('./css/index.css')
 	]
 }

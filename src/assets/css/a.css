@@ -3,4 +3,5 @@ body{
 }
 .main{
 	color: red;
+	transform: rotate(45deg);
 }
