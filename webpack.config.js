@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const headerHtml = require('./src/assets/js/header');
@@ -13,15 +14,33 @@ module.exports = {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'js/bundle-[hash].js'
 	},
-	// devServer: {
-	// 	contentBase: path.resolve(__dirname, 'dist'),
-	// 	host: 'localhost',
-	// 	port: 8765,
-	//  hot: true,
-	// 	open: true
-	// },
+	devServer: {
+		contentBase: path.resolve(__dirname, 'dist'),
+		host: 'localhost',
+		port: 8765,
+	 hot: true,
+		open: true
+	},
+	module: {
+		rules: [
+			{
+				test: /\.css$/,
+				use: ['style-loader', 'css-loader']
+			},
+			{
+				test: /\.(png|jpg|gif)/,
+				use: [{
+					loader: 'url-loader',
+					options: {
+						limit: 3000
+					}
+				}]
+			}
+		]
+	},
 	plugins:[
-		new CleanWebpackPlugin(['dist']),
+		new webpack.HotModuleReplacementPlugin(), // 启用热更新
+		// new CleanWebpackPlugin(['dist']),
 		new HtmlWebpackPlugin({
 			title: 'templete A',
 			filename: 'a.html',
