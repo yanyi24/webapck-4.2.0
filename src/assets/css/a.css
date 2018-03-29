@@ -1,7 +1,7 @@
-body{
-	background: url('../images/logo.png') repeat-x;
+#less-id {
+  color: red;
 }
-.main{
-	color: red;
-	transform: rotate(45deg);
+.main {
+  color: red;
+  transform: rotate(45deg);
 }

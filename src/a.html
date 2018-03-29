@@ -11,13 +11,20 @@
 	
 	
 </head>
-<%= htmlWebpackPlugin.options.files.header %>
-<p class="main">main</p>
-<h2>hahhahahahahahhaah</h2>
-<img src="./assets/images/logo.png" >
-<div id="less-id">
-	this is to test Less!!
-</div>
+
 <body>
+		<header>
+				<%= htmlWebpackPlugin.options.files.header %>
+			</header>
+			
+			<p class="main">main</p>
+			<h2>hahhahahahahahhaah</h2>
+			<img src="./assets/images/logo.png" >
+			<div id="less-id">
+				this is to test Less!!
+			</div>
+			<div>
+				#include("./footer.html")
+			</div>
 </body>
 </html>

@@ -1,0 +1,8 @@
+body{
+	background: url('../images/logo.png') repeat-x;
+}
+header{
+	font-size: 32px;
+	text-align: center;
+	color: blue;
+}

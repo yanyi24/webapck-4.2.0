@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin'); 
 const headerHtml = require('./src/assets/js/headerHTML');
+
 module.exports = {
 	entry: ['./src/assets/js/a.js','./src/assets/js/b.js'],//多入口到单一出口
 	// entry: {
@@ -18,7 +19,7 @@ module.exports = {
 	devServer: {
 		contentBase: path.resolve(__dirname, 'dist'),
 		host: 'localhost',
-		port: 8765,
+		port: 8767,
 	 hot: true,
 		open: true
 	},
@@ -35,6 +36,10 @@ module.exports = {
 			// 		// }
 			// 	}]
 			// },
+			{
+				test: '/\.(html)$/',
+				use: 'html-withimg-loader'
+			},
 			{
 				test: /\.css$/,
 				// use: ['style-loader', 'css-loader']
@@ -54,7 +59,7 @@ module.exports = {
 				})
 			},
 			{
-				test: /\.(pne?g|jpg|gif|svg)/,
+				test: /\.(png|jpe?g|gif|svg)$/,
 				use: [{
 					loader: 'url-loader',
 					options: {
@@ -68,7 +73,7 @@ module.exports = {
 	},
 	plugins:[
 		new webpack.HotModuleReplacementPlugin(), // 启用热更新
-		new CleanWebpackPlugin(['dist']),
+		// new CleanWebpackPlugin(['dist']),
 		new HtmlWebpackPlugin({
 			title: 'templete A',
 			filename: 'a.html',
@@ -85,6 +90,6 @@ module.exports = {
 			filename: 'b.html',
 			template: './src/b.html',
 		}),
-		new ExtractTextPlugin('./css/index.css')
+		new ExtractTextPlugin('css/index[hash:4].css'),
 	]
 }
